@@ -6,8 +6,6 @@ var yaw = 0
 var pitch = 0
 
 var velocity = Vector3()
-const FLY_SPEED = 100
-const FLY_ACCEL = 4
 
 const WALK_MAX_SPEED = 15
 const ACCEL = 4
@@ -60,33 +58,6 @@ func _enter_tree():
 func _exit_tree():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-func _fly(delta):
-	#get the current rotation of the camers (as a basis/matrix)
-	var aim = get_node("yaw/Camera").get_global_transform().basis
-
-	#determin what direction the player wants to go
-	var direction = Vector3()
-	if(Input.is_action_pressed("move_foward")):
-		direction -= aim[2]
-	if(Input.is_action_pressed("move_back")):
-		direction += aim[2]
-	if(Input.is_action_pressed("strafe_left")):
-		direction -= aim[0]
-	if(Input.is_action_pressed("strafe_right")):
-		direction += aim[0]
-	
-	#convert the desired direction into a unit vector
-	direction = direction.normalized()
-	#calculate the target vector
-	var target = direction*FLY_SPEED
-	
-	#Determin the velocity
-	velocity = Vector3().linear_interpolate(target,FLY_ACCEL*delta)
-
-	#move towards the desired direction
-	move_and_slide(velocity)
-
-#like flying but on the ground	
 func _walk(delta):
 	#get the current rotation of the camers (as a basis/matrix)
 	var aim = get_node("yaw/Camera").get_global_transform().basis
@@ -131,8 +102,9 @@ func _walk(delta):
 	
 	#move towards the desired direction
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
-	print(get_floor_velocity())
-	print(is_on_floor())
+	
+	print("is on floor = " + str(is_on_floor()))
+#	print("current floor Velocity = " + str(get_floor_velocity()))
 	if( is_on_floor() and Input.is_action_pressed("Jump")):
 		velocity.y += JUMP
 	if !is_on_floor():
@@ -140,6 +112,9 @@ func _walk(delta):
 		
 #	if is_on_floor() and get_floor_velocity() !=Vector3():
 #		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
+
+	if get_floor_velocity() !=Vector3():
+		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
 		
 		
 #process weapons firing
