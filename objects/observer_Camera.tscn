@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/observer_Camera.vs" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 1, 1, 1 )
+
+[node name="FlyCam" type="KinematicBody"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.001
+script = ExtResource( 1 )
+
+[node name="Yaw" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="Yaw"]
+
+projection = 0
+fov = 70.0
+near = 0.05
+far = 100.0
+keep_aspect = 1
+current = false
+cull_mask = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+doppler/tracking = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+
+shape = SubResource( 1 )
+disabled = false
+
+
