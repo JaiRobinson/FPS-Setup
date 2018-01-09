@@ -109,13 +109,15 @@ func _walk(delta):
 		velocity.y += JUMP
 	if !is_on_floor():
 		velocity.y += delta*GRAVITY
+#	velocity.y += delta*GRAVITY
+	
 		
-#	if is_on_floor() and get_floor_velocity() !=Vector3():
-#		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
-
-	if get_floor_velocity() !=Vector3():
+	if is_on_floor() and get_floor_velocity() !=Vector3():
 		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
-		
+	print(get_floor_velocity())
+#
+#	if get_floor_velocity() !=Vector3():
+#		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
 		
 #process weapons firing
 func _weaponSystem(delta):

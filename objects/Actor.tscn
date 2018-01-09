@@ -7,7 +7,7 @@
 radius = 0.6
 height = 1.0
 
-[node name="Actor" type="KinematicBody"]
+[node name="Actor" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -36,8 +36,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0 )
 
 [node name="Camera" type="Camera" parent="yaw" index="0"]
 
-keep_aspect = 0
-vaspect = false
+keep_aspect = 1
+vaspect = true
 cull_mask = 1048575
 environment = null
 h_offset = 0.0
