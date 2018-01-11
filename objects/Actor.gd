@@ -103,19 +103,15 @@ func _walk(delta):
 	#move towards the desired direction
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
 	
-	print("is on floor = " + str(is_on_floor()))
-#	print("current floor Velocity = " + str(get_floor_velocity()))
 	if( is_on_floor() and Input.is_action_pressed("Jump")):
 		velocity.y += JUMP
-	if !is_on_floor():
-		velocity.y += delta*GRAVITY
-#	velocity.y += delta*GRAVITY
-	
+#	if !is_on_floor():
+#		velocity.y += delta*GRAVITY
+	velocity.y += delta*GRAVITY
 		
 	if is_on_floor() and get_floor_velocity() !=Vector3():
+#		move_and_slide(get_floor_velocity()*delta, Vector3(0,1,0))
 		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
-	print(get_floor_velocity())
-#
 #	if get_floor_velocity() !=Vector3():
 #		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
 		

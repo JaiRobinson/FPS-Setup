@@ -135,7 +135,7 @@ subdivide_depth = 0
 
 extents = Vector3( 1, 1, 1 )
 
-[node name="MainSceneRoot" type="Node" index="0"]
+[node name="MainSceneRoot" type="Node"]
 
 [node name="Test_Level" parent="." index="0" instance=ExtResource( 1 )]
 
@@ -217,7 +217,7 @@ axis_lock_angular_z = false
 
 [node name="Actor" parent="." index="6" instance=ExtResource( 3 )]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0144, 4.13625, 1.28757 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6734, 4.13625, 7.32746 )
 
 [node name="CenterLift" type="Spatial" parent="." index="7"]
 
