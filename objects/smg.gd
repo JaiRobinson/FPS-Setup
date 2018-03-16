@@ -22,3 +22,6 @@ func fire():
 	bulletInst.set_transform(get_parent().get_global_transform())
 	bulletInst.set_linear_velocity(-(aim*80))
 	get_tree().get_root().add_child(bulletInst)
+
+
+	print("BANG!")
