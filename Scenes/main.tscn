@@ -221,6 +221,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0144, 4.13625, 1.28757 )
 
 [node name="CenterLift" type="Spatial" parent="." index="7"]
 
+editor/display_folded = true
+
 [node name="CargoLift" parent="CenterLift" index="0" instance=ExtResource( 4 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0695921, -2.8897 )
@@ -233,14 +235,13 @@ axis_lock_angular_z = false
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="CenterLift/CargoLift" index="2"]
 
+root_node = NodePath("..")
+autoplay = "LiftMotion"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-root_node = NodePath("..")
+playback_speed = 1.0
 anims/LiftMotion = SubResource( 1 )
-playback/active = true
-playback/speed = 1.0
 blend_times = [  ]
-autoplay = "LiftMotion"
 
 [node name="cubeLift" type="Spatial" parent="." index="8"]
 
@@ -295,14 +296,13 @@ disabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="cubeLift/RigidBody" index="2"]
 
+root_node = NodePath("..")
+autoplay = "New Anim"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-root_node = NodePath("..")
+playback_speed = 1.0
 "anims/New Anim" = SubResource( 4 )
-playback/active = true
-playback/speed = 1.0
 blend_times = [  ]
-autoplay = "New Anim"
 
 [node name="cubeLift2" type="Spatial" parent="." index="9"]
 
@@ -345,14 +345,13 @@ disabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="cubeLift2/RigidBody" index="2"]
 
+root_node = NodePath("..")
+autoplay = "New Anim"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
-root_node = NodePath("..")
+playback_speed = 1.0
 "anims/New Anim" = SubResource( 6 )
-playback/active = true
-playback/speed = 1.0
 blend_times = [  ]
-autoplay = "New Anim"
 
 [node name="FloorTest" type="StaticBody" parent="." index="10"]
 

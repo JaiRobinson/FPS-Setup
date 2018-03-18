@@ -18,8 +18,6 @@ const GRAVITY = -9.8*3
 
 var weapon = null;
 
-
-
 #gun cooldown
 var fireRate = 10.25
 var coolDown = 0
@@ -59,7 +57,7 @@ func _exit_tree():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _walk(delta):
-	#get the current rotation of the camers (as a basis/matrix)
+	#get the current rotation of the camers (as a basis)
 	var aim = get_node("yaw/Camera").get_global_transform().basis
 
 	#determin what direction the player wants to go
@@ -73,16 +71,12 @@ func _walk(delta):
 	if(Input.is_action_pressed("strafe_right")):
 		direction += aim[0]
 	
-	
-	
 	#determin if the character is moving
 	isMoving = (direction.length()>0)
 	
 	#convert the desired direction into a unit vector
 	direction = direction.normalized()
 	
-
-
 	#calculate the target vector
 	var target = direction*WALK_MAX_SPEED
 	
@@ -91,7 +85,7 @@ func _walk(delta):
 	var accel=DECCEL
 	if (isMoving):
 		accel=ACCEL
-		
+	
 	#Determin the velocity
 	var hvel = velocity
 	hvel.y = 0
@@ -99,26 +93,28 @@ func _walk(delta):
 	hvel = hvel.linear_interpolate(target, accel*delta)
 	velocity.x = hvel.x
 	velocity.z = hvel.z
-	
+
 	#move towards the desired direction
 	velocity = move_and_slide(velocity, Vector3(0,1,0))
 	
+	#####debug#####
 	print("is on floor = " + str(is_on_floor()))
-#	print("current floor Velocity = " + str(get_floor_velocity()))
+	##################
+	
+	#Only allowed to jump if on the floor. 
 	if( is_on_floor() and Input.is_action_pressed("Jump")):
 		velocity.y += JUMP
-	if !is_on_floor():
-		velocity.y += delta*GRAVITY
-#	velocity.y += delta*GRAVITY
+	#Only calculate Gravity if we are in the air.
+	#if !is_on_floor():
+	#	velocity.y += delta*GRAVITY
+	velocity.y += delta*GRAVITY
 	
-		
-	if is_on_floor() and get_floor_velocity() !=Vector3():
-		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
-	print(get_floor_velocity())
+	#if is_on_floor() and get_floor_velocity() !=Vector3(0,0,0):
+	#	move_and_slide(get_floor_velocity(), Vector3(0,1,0))
 #
 #	if get_floor_velocity() !=Vector3():
 #		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
-		
+
 #process weapons firing
 func _weaponSystem(delta):
 
