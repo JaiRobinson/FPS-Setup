@@ -69,4 +69,5 @@ weapon2={
 [rendering]
 
 quality/subsurface_scattering/scale=4
+quality/filters/msaa=2
 environment/default_environment="res://default_env.tres"

@@ -9,12 +9,14 @@ var velocity = Vector3()
 
 const WALK_MAX_SPEED = 15
 const ACCEL = 4
-const DECCEL = 8
+const DECCEL = 10
 
 var isMoving = false
 
 const JUMP = 3*3
 const GRAVITY = -9.8*3
+
+const FLOOR_NORMAL = Vector3(0,1,0)
 
 var weapon = null;
 
@@ -26,7 +28,8 @@ var coolDown = 0
 var ballGun = preload("res://objects/BallGun.tscn").instance()
 var SMG 	= preload("res://objects/SmgGun.tscn").instance()
 
-var snap = Vector3(0,-8,0)
+var originalSnap = Vector3(0,-8,0)
+var snap
 
 func _input(event):
 	if(event is InputEventMouseMotion):
@@ -44,11 +47,13 @@ func _ready():
 	get_node("yaw/Camera/currentWeapon").add_child(ballGun)
 	weapon = get_node("yaw/Camera/currentWeapon").get_child(0)
 	fireRate = weapon.fireRate
+	snap = originalSnap
 
 func _physics_process(delta):	
 	#process character movment
 	_walk(delta)
 	_weaponSystem(delta)
+
 
 #Set the mouse mode to captured when the 'actor' is created	
 func _enter_tree():
@@ -92,23 +97,32 @@ func _walk(delta):
 	var hvel = velocity
 	hvel.y = 0
 	
+	#clamp movment values at low speeds to allow stopping on slopes
+	if (!isMoving):
+		if hvel.x < 2 && hvel.x > -2:
+			hvel.x = 0
+		if hvel.z < 2 && hvel.z > -2:
+			hvel.z = 0
+	
 	hvel = hvel.linear_interpolate(target, accel*delta)
+	
+	#Note this seems like it shouldn't be needed
+	#if issue #30311 gets fixed this might break things or be unnecessary.
+	#make the player "stick" with moving floors and platforms
+	hvel += get_floor_velocity()*delta
+	
 	velocity.x = hvel.x
 	velocity.z = hvel.z
 	
 	#move towards the desired direction
-	velocity = move_and_slide_with_snap(velocity, snap, Vector3(0,1,0), true)
-	
-	#####debug#####
-	print("is on floor = " + str(is_on_floor()))
-	##################
+	velocity = move_and_slide_with_snap(velocity, snap, FLOOR_NORMAL, true)
 	
 	#Only allowed to jump if on the floor. 
 	if( is_on_floor() and Input.is_action_pressed("Jump")):
-		velocity.y += JUMP
 		snap = Vector3(0,0,0)
+		velocity.y += JUMP
 	if(!is_on_floor()):
-		snap = Vector3(0,-8,0)
+		snap = originalSnap
 	
 	#Apply Gravity
 	velocity.y += delta*GRAVITY
