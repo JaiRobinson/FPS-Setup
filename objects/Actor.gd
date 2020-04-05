@@ -26,6 +26,8 @@ var coolDown = 0
 var ballGun = preload("res://objects/BallGun.tscn").instance()
 var SMG 	= preload("res://objects/SmgGun.tscn").instance()
 
+var snap = Vector3(0,-8,0)
+
 func _input(event):
 	if(event is InputEventMouseMotion):
 		
@@ -93,9 +95,9 @@ func _walk(delta):
 	hvel = hvel.linear_interpolate(target, accel*delta)
 	velocity.x = hvel.x
 	velocity.z = hvel.z
-
+	
 	#move towards the desired direction
-	velocity = move_and_slide(velocity, Vector3(0,1,0))
+	velocity = move_and_slide_with_snap(velocity, snap, Vector3(0,1,0), true)
 	
 	#####debug#####
 	print("is on floor = " + str(is_on_floor()))
@@ -104,16 +106,12 @@ func _walk(delta):
 	#Only allowed to jump if on the floor. 
 	if( is_on_floor() and Input.is_action_pressed("Jump")):
 		velocity.y += JUMP
-	#Only calculate Gravity if we are in the air.
-	#if !is_on_floor():
-	#	velocity.y += delta*GRAVITY
-	velocity.y += delta*GRAVITY
+		snap = Vector3(0,0,0)
+	if(!is_on_floor()):
+		snap = Vector3(0,-8,0)
 	
-	#if is_on_floor() and get_floor_velocity() !=Vector3(0,0,0):
-	#	move_and_slide(get_floor_velocity(), Vector3(0,1,0))
-#
-#	if get_floor_velocity() !=Vector3():
-#		move_and_slide(get_floor_velocity(), Vector3(0,1,0))
+	#Apply Gravity
+	velocity.y += delta*GRAVITY
 
 #process weapons firing
 func _weaponSystem(delta):

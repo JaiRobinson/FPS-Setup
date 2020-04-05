@@ -6,11 +6,9 @@
 [ext_resource path="res://objects/CargoLift.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
-
 resource_name = "LiftMotion"
 length = 5.0
 loop = true
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
 tracks/0/interp = 1
@@ -26,21 +24,12 @@ tracks/0/keys = {
 
 [sub_resource type="CubeMesh" id=2]
 
-size = Vector3( 2, 2, 2 )
-subdivide_width = 0
-subdivide_height = 0
-subdivide_depth = 0
-
 [sub_resource type="BoxShape" id=3]
 
-extents = Vector3( 1, 1, 1 )
-
 [sub_resource type="Animation" id=4]
-
 resource_name = "New Anim"
 length = 5.0
 loop = true
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
 tracks/0/interp = 1
@@ -55,62 +44,13 @@ tracks/0/keys = {
 }
 
 [sub_resource type="SpatialMaterial" id=5]
-
-render_priority = 0
-flags_transparent = false
-flags_unshaded = false
-flags_vertex_lighting = false
-flags_no_depth_test = false
-flags_use_point_size = false
-flags_world_triplanar = false
-flags_fixed_size = false
-flags_albedo_tex_force_srgb = false
-vertex_color_use_as_albedo = false
-vertex_color_is_srgb = false
 params_diffuse_mode = 1
-params_specular_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-params_billboard_mode = 0
-params_grow = false
-params_use_alpha_scissor = false
 albedo_color = Color( 0.0466919, 0.258289, 0.398438, 1 )
-metallic = 0.0
-metallic_specular = 0.5
-metallic_texture_channel = 0
 roughness = 0.0
-roughness_texture_channel = 0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-depth_enabled = false
-subsurf_scatter_enabled = false
-transmission_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector3( 1, 1, 1 )
-uv1_offset = Vector3( 0, 0, 0 )
-uv1_triplanar = false
-uv1_triplanar_sharpness = 1.0
-uv2_scale = Vector3( 1, 1, 1 )
-uv2_offset = Vector3( 0, 0, 0 )
-uv2_triplanar = false
-uv2_triplanar_sharpness = 1.0
-proximity_fade_enable = false
-distance_fade_enable = false
-_sections_unfolded = [ "Albedo" ]
 
 [sub_resource type="Animation" id=6]
-
 length = 10.0
 loop = true
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
 tracks/0/interp = 1
@@ -126,264 +66,91 @@ tracks/0/keys = {
 
 [sub_resource type="CubeMesh" id=7]
 
-size = Vector3( 2, 2, 2 )
-subdivide_width = 0
-subdivide_height = 0
-subdivide_depth = 0
-
 [sub_resource type="BoxShape" id=8]
 
-extents = Vector3( 1, 1, 1 )
+[node name="MainSceneRoot" type="Node"]
 
-[node name="MainSceneRoot" type="Node" index="0"]
-
-[node name="Test_Level" parent="." index="0" instance=ExtResource( 1 )]
-
+[node name="Test_Level" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0670815, 0 )
 
-[node name="OmniLight" type="OmniLight" parent="." index="1"]
-
+[node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2345, 11.6723, -7.45057 )
-layers = 1
 light_color = Color( 0.851563, 0.793714, 0.711853, 1 )
 light_energy = 7.67
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
 shadow_enabled = true
-shadow_color = Color( 0, 0, 0, 1 )
 shadow_bias = 0.47
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
 omni_range = 62.1093
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
 
-[node name="OmniLight2" type="OmniLight" parent="." index="2"]
-
+[node name="OmniLight2" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.027, 12.8726, 2.34948 )
-layers = 1
 light_color = Color( 0.851563, 0.793714, 0.711853, 1 )
 light_energy = 1.04
-light_indirect_energy = 1.0
-light_negative = false
-light_specular = 0.5
-light_bake_mode = 1
-light_cull_mask = -1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_bias = 0.15
-shadow_contact = 0.0
-shadow_reverse_cull_face = false
-editor_only = false
 omni_range = 35.4667
-omni_attenuation = 1.0
-omni_shadow_mode = 1
-omni_shadow_detail = 1
 
-[node name="BoxTest_RigidBody" parent="." index="3" instance=ExtResource( 2 )]
-
+[node name="BoxTest_RigidBody" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.00598, 1.10937, 14.7993 )
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
 
-[node name="BoxTest_RigidBody2" parent="." index="4" instance=ExtResource( 2 )]
-
+[node name="BoxTest_RigidBody2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.929051, 0, 0.369951, 0, 1, 0, -0.369951, 0, 0.929051, 2.13047, 1.10937, 12.6716 )
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
 
-[node name="BoxTest_RigidBody3" parent="." index="5" instance=ExtResource( 2 )]
-
+[node name="BoxTest_RigidBody3" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.998742, 0, 0.050147, 0, 1, 0, -0.050147, 0, 0.998742, 2.88073, 3.18764, 13.653 )
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
 
-[node name="Actor" parent="." index="6" instance=ExtResource( 3 )]
-
+[node name="Actor" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0144, 4.13625, 1.28757 )
 
-[node name="CenterLift" type="Spatial" parent="." index="7"]
+[node name="CenterLift" type="Spatial" parent="."]
 
-editor/display_folded = true
-
-[node name="CargoLift" parent="CenterLift" index="0" instance=ExtResource( 4 )]
-
+[node name="CargoLift" parent="CenterLift" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0695921, -2.8897 )
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
+mode = 3
 
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="CenterLift/CargoLift" index="2"]
-
-root_node = NodePath("..")
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="CenterLift/CargoLift"]
 autoplay = "LiftMotion"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
 anims/LiftMotion = SubResource( 1 )
-blend_times = [  ]
 
-[node name="cubeLift" type="Spatial" parent="." index="8"]
+[node name="cubeLift" type="Spatial" parent="."]
 
-[node name="RigidBody" type="RigidBody" parent="cubeLift" index="0"]
-
+[node name="RigidBody" type="RigidBody" parent="cubeLift"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7503, 1.00594, 0 )
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-mode = 2
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = false
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
+mode = 3
 can_sleep = false
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
-linear_velocity = Vector3( 0, 0, 0 )
-linear_damp = -1.0
-angular_velocity = Vector3( 0, 0, 0 )
-angular_damp = -1.0
 
-[node name="MeshInstance" type="MeshInstance" parent="cubeLift/RigidBody" index="0"]
-
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
+[node name="MeshInstance" type="MeshInstance" parent="cubeLift/RigidBody"]
 mesh = SubResource( 2 )
-skeleton = NodePath("..")
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="cubeLift/RigidBody" index="1"]
-
+[node name="CollisionShape" type="CollisionShape" parent="cubeLift/RigidBody"]
 shape = SubResource( 3 )
-disabled = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="cubeLift/RigidBody" index="2"]
-
-root_node = NodePath("..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="cubeLift/RigidBody"]
 autoplay = "New Anim"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
 "anims/New Anim" = SubResource( 4 )
-blend_times = [  ]
 
-[node name="cubeLift2" type="Spatial" parent="." index="9"]
+[node name="cubeLift2" type="Spatial" parent="."]
 
-[node name="RigidBody" type="KinematicBody" parent="cubeLift2" index="0"]
-
+[node name="RigidBody" type="RigidBody" parent="cubeLift2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9149, 1.00594, 0 )
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-axis_lock_linear_x = false
-axis_lock_linear_y = false
-axis_lock_linear_z = false
-axis_lock_angular_x = false
-axis_lock_angular_y = false
-axis_lock_angular_z = false
-collision/safe_margin = 0.001
-_sections_unfolded = [ "Transform" ]
+mode = 3
 
-[node name="MeshInstance" type="MeshInstance" parent="cubeLift2/RigidBody" index="0"]
-
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
+[node name="MeshInstance" type="MeshInstance" parent="cubeLift2/RigidBody"]
 mesh = SubResource( 2 )
-skeleton = NodePath("..")
 material/0 = SubResource( 5 )
-_sections_unfolded = [ "material" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="cubeLift2/RigidBody" index="1"]
-
+[node name="CollisionShape" type="CollisionShape" parent="cubeLift2/RigidBody"]
 shape = SubResource( 3 )
-disabled = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="cubeLift2/RigidBody" index="2"]
-
-root_node = NodePath("..")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="cubeLift2/RigidBody"]
 autoplay = "New Anim"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
 "anims/New Anim" = SubResource( 6 )
-blend_times = [  ]
 
-[node name="FloorTest" type="StaticBody" parent="." index="10"]
+[node name="FloorTest" type="StaticBody" parent="."]
 
-input_ray_pickable = true
-input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
-friction = 1.0
-bounce = 0.0
-constant_linear_velocity = Vector3( 0, 0, 0 )
-constant_angular_velocity = Vector3( 0, 0, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="FloorTest" index="0"]
-
+[node name="MeshInstance" type="MeshInstance" parent="FloorTest"]
 transform = Transform( 4.55021, 0, 0, 0, 1, 0, 0, 0, 4.19949, 0, 0, -12.4354 )
-layers = 1
-material_override = null
-cast_shadow = 1
-extra_cull_margin = 0.0
-use_in_baked_light = false
-lod_min_distance = 0.0
-lod_min_hysteresis = 0.0
-lod_max_distance = 0.0
-lod_max_hysteresis = 0.0
 mesh = SubResource( 7 )
-skeleton = NodePath("..")
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="FloorTest" index="1"]
-
+[node name="CollisionShape" type="CollisionShape" parent="FloorTest"]
 transform = Transform( 4.55021, 0, 0, 0, 1, 0, 0, 0, 4.19949, 0, 0, -12.4354 )
 shape = SubResource( 8 )
-disabled = false
-
-

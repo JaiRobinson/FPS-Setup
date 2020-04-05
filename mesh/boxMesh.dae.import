@@ -6,12 +6,14 @@ path="res://.import/boxMesh.dae-4ad0c42e83ccb0b3edd0b10ee022cb66.scn"
 
 [deps]
 
-source_md5="cf77e9db93335ea54f3ba395b645ddf8"
+source_file="res://mesh/boxMesh.dae"
+dest_files=[ "res://.import/boxMesh.dae-4ad0c42e83ccb0b3edd0b10ee022cb66.scn" ]
 
 [params]
 
 nodes/root_type="Spatial"
 nodes/root_name="Scene Root"
+nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
 materials/location=1
@@ -21,11 +23,13 @@ meshes/compress=true
 meshes/ensure_tangents=true
 meshes/storage=0
 meshes/light_baking=0
+meshes/lightmap_texel_size=0.1
 external_files/store_in_subdir=false
 animation/import=true
 animation/fps=15
 animation/filter_script=""
 animation/storage=false
+animation/keep_custom_tracks=false
 animation/optimizer/enabled=true
 animation/optimizer/max_linear_error=0.05
 animation/optimizer/max_angular_error=0.01

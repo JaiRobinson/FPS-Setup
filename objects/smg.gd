@@ -14,7 +14,7 @@ func _ready():
 func fire():
 	randomize()
 	
-	var bullet = preload("res://objects/Bullet.tscn")
+	var bullet = preload("res://objects/bullet.tscn")
 	var bulletInst = bullet.instance()
 	#set the aim to be the z of the camers basis pluss a little random inaccuracy
 	var aim = (get_node(".").get_global_transform().basis[2] + Vector3(rand_range(-0.1,0.1),rand_range(-0.1,0.1),rand_range(-0.1,0.1))).normalized()
