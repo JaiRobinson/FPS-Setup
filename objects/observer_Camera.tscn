@@ -2,11 +2,11 @@
 
 [ext_resource path="res://objects/observer_Camera.vs" type="Script" id=1]
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape3D" id=1]
 
 extents = Vector3( 1, 1, 1 )
 
-[node name="FlyCam" type="KinematicBody"]
+[node name="FlyCam" type="CharacterBody3D"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -15,9 +15,9 @@ collision_mask = 1
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
 
-[node name="Yaw" type="Spatial" parent="."]
+[node name="Yaw" type="Node3D" parent="."]
 
-[node name="Camera" type="Camera" parent="Yaw"]
+[node name="Camera3D" type="Camera3D" parent="Yaw"]
 
 projection = 0
 fov = 70.0
@@ -31,7 +31,7 @@ h_offset = 0.0
 v_offset = 0.0
 doppler/tracking = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 
 shape = SubResource( 1 )
 disabled = false

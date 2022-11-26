@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var fireRate = 0.25
 
@@ -14,7 +14,7 @@ func _ready():
 func fire():
 	
 	var bullet = preload("res://objects/Bullet_sphere.tscn")
-	var bulletInst = bullet.instance()
+	var bulletInst = bullet.instantiate()
 	bulletInst.set_transform(get_parent().get_global_transform())
 	bulletInst.set_linear_velocity(-((get_node(".").get_global_transform().basis[2].normalized()*20)))
 	get_tree().get_root().add_child(bulletInst)

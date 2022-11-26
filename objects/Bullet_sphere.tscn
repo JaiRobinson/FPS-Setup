@@ -8,7 +8,7 @@ radial_segments = 32
 rings = 16
 is_hemisphere = false
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="StandardMaterial3D" id=2]
 
 render_priority = 0
 flags_transparent = false
@@ -55,14 +55,14 @@ uv2_scale = Vector3( 1, 1, 1 )
 uv2_offset = Vector3( 0, 0, 0 )
 uv2_triplanar = false
 uv2_triplanar_sharpness = 1.0
-proximity_fade_enable = false
+proximity_fade_enabled = false
 distance_fade_enable = false
 
-[sub_resource type="SphereShape" id=3]
+[sub_resource type="SphereShape3D" id=3]
 
 radius = 0.298306
 
-[node name="Bullet_sphere" type="RigidBody"]
+[node name="Bullet_sphere" type="RigidBody3D"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -75,7 +75,7 @@ bounce = 0.5
 gravity_scale = 1.0
 custom_integrator = false
 continuous_cd = false
-contacts_reported = 0
+max_contacts_reported = 0
 contact_monitor = false
 sleeping = false
 can_sleep = true
@@ -85,7 +85,7 @@ linear_damp = -1.0
 angular_velocity = Vector3( 0, 0, 0 )
 angular_damp = -1.0
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 
 layers = 1
 material_override = null
@@ -100,7 +100,7 @@ mesh = SubResource( 1 )
 skeleton = NodePath("..")
 material/0 = SubResource( 2 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 
 shape = SubResource( 3 )
 disabled = false

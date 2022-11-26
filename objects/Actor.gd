@@ -1,11 +1,11 @@
-extends KinematicBody
+extends CharacterBody3D
 
 # class member variables go here
 var view_sensitivity = 0.3
 var yaw = 0
 var pitch = 0
 
-var velocity = Vector3()
+var myVelocity = Vector3()
 
 const WALK_MAX_SPEED = 15
 const ACCEL = 4
@@ -25,8 +25,8 @@ var fireRate = 10.25
 var coolDown = 0
 
 #preload the players guns
-var ballGun = preload("res://objects/BallGun.tscn").instance()
-var SMG 	= preload("res://objects/SmgGun.tscn").instance()
+var ballGun = preload("res://objects/BallGun.tscn").instantiate()
+var SMG 	= preload("res://objects/SmgGun.tscn").instantiate()
 
 var originalSnap = Vector3(0,-8,0)
 var snap
@@ -35,17 +35,17 @@ func _input(event):
 	if(event is InputEventMouseMotion):
 		
 		yaw = fmod(yaw - event.relative.x * view_sensitivity, 360)
-		get_node("yaw").set_rotation(Vector3(0,deg2rad(yaw),0))
+		get_node("yaw").set_rotation(Vector3(0,deg_to_rad(yaw),0))
 		
 		pitch = max(min(pitch - event.relative.y * view_sensitivity, 90), -90)
-		get_node("yaw/Camera").set_rotation(Vector3(deg2rad(pitch),0,0))
+		get_node("yaw/Camera3D").set_rotation(Vector3(deg_to_rad(pitch),0,0))
 	
 
 
 func _ready():
 	#add default weapon to character
-	get_node("yaw/Camera/currentWeapon").add_child(ballGun)
-	weapon = get_node("yaw/Camera/currentWeapon").get_child(0)
+	get_node("yaw/Camera3D/currentWeapon").add_child(ballGun)
+	weapon = get_node("yaw/Camera3D/currentWeapon").get_child(0)
 	fireRate = weapon.fireRate
 	snap = originalSnap
 
@@ -65,7 +65,7 @@ func _exit_tree():
 
 func _walk(delta):
 	#get the current rotation of the camers (as a basis)
-	var aim = get_node("yaw/Camera").get_global_transform().basis
+	var aim = get_node("yaw/Camera3D").get_global_transform().basis
 
 	#determin what direction the player wants to go
 	var direction = Vector3()
@@ -93,39 +93,44 @@ func _walk(delta):
 	if (isMoving):
 		accel=ACCEL
 	
-	#Determin the velocity
-	var hvel = velocity
+	#Determin the myVelocity
+	var hvel = myVelocity
 	hvel.y = 0
 	
-	#clamp movment values at low speeds to allow stopping on slopes
+	#clamp movment values at low speeds to allow stopping checked slopes
 	if (!isMoving):
 		if hvel.x < 2 && hvel.x > -2:
 			hvel.x = 0
 		if hvel.z < 2 && hvel.z > -2:
 			hvel.z = 0
 	
-	hvel = hvel.linear_interpolate(target, accel*delta)
+	hvel = hvel.lerp(target, accel*delta)
 	
 	#Note this seems like it shouldn't be needed
 	#if issue #30311 gets fixed this might break things or be unnecessary.
 	#make the player "stick" with moving floors and platforms
-	hvel += get_floor_velocity()*delta
+	hvel += get_platform_velocity()*delta
 	
-	velocity.x = hvel.x
-	velocity.z = hvel.z
+	myVelocity.x = hvel.x
+	myVelocity.z = hvel.z
 	
 	#move towards the desired direction
-	velocity = move_and_slide_with_snap(velocity, snap, FLOOR_NORMAL, true)
+	set_velocity(myVelocity)
+	# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+	set_up_direction(FLOOR_NORMAL)
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()
+	myVelocity = myVelocity
 	
-	#Only allowed to jump if on the floor. 
+	#Only allowed to jump if checked the floor. 
 	if( is_on_floor() and Input.is_action_pressed("Jump")):
 		snap = Vector3(0,0,0)
-		velocity.y += JUMP
+		myVelocity.y += JUMP
 	if(!is_on_floor()):
 		snap = originalSnap
 	
 	#Apply Gravity
-	velocity.y += delta*GRAVITY
+	myVelocity.y += delta*GRAVITY
 
 #process weapons firing
 func _weaponSystem(delta):
@@ -139,14 +144,14 @@ func _weaponSystem(delta):
 		
 	#weapon switching. pretty in-elegant but It works
 	if(Input.is_action_pressed("weapon1")):
-		get_node("yaw/Camera/currentWeapon").remove_child(weapon)
-		get_node("yaw/Camera/currentWeapon").add_child(ballGun)
-		weapon = get_node("yaw/Camera/currentWeapon").get_child(0)
+		get_node("yaw/Camera3D/currentWeapon").remove_child(weapon)
+		get_node("yaw/Camera3D/currentWeapon").add_child(ballGun)
+		weapon = get_node("yaw/Camera3D/currentWeapon").get_child(0)
 		fireRate = weapon.fireRate
 	if(Input.is_action_pressed("weapon2")):
-		get_node("yaw/Camera/currentWeapon").remove_child(weapon)
-		get_node("yaw/Camera/currentWeapon").add_child(SMG)
-		weapon = get_node("yaw/Camera/currentWeapon").get_child(0)
+		get_node("yaw/Camera3D/currentWeapon").remove_child(weapon)
+		get_node("yaw/Camera3D/currentWeapon").add_child(SMG)
+		weapon = get_node("yaw/Camera3D/currentWeapon").get_child(0)
 		fireRate = weapon.fireRate
 		
 		

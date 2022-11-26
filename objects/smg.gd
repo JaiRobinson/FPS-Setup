@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var fireRate = 0.05
 
@@ -15,9 +15,9 @@ func fire():
 	randomize()
 	
 	var bullet = preload("res://objects/bullet.tscn")
-	var bulletInst = bullet.instance()
+	var bulletInst = bullet.instantiate()
 	#set the aim to be the z of the camers basis pluss a little random inaccuracy
-	var aim = (get_node(".").get_global_transform().basis[2] + Vector3(rand_range(-0.1,0.1),rand_range(-0.1,0.1),rand_range(-0.1,0.1))).normalized()
+	var aim = (get_node(".").get_global_transform().basis[2] + Vector3(randf_range(-0.1,0.1),randf_range(-0.1,0.1),randf_range(-0.1,0.1))).normalized()
 	
 	bulletInst.set_transform(get_parent().get_global_transform())
 	bulletInst.set_linear_velocity(-(aim*80))

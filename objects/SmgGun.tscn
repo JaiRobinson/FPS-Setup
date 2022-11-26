@@ -2,7 +2,7 @@
 
 [ext_resource path="res://objects/smg.gd" type="Script" id=1]
 
-[node name="smg" type="Spatial"]
+[node name="smg" type="Node3D"]
 
 script = ExtResource( 1 )
 
